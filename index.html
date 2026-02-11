@@ -1,0 +1,1300 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mfinanga Electro Shop - Login & Admin</title>
+  <style>
+    /* Reset and base */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #f0f4f8, #d9e2ec);
+      color: #222;
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      transition: background-color 0.5s ease;
+    }
+
+    a {
+      text-decoration: none;
+      color: #0077b6;
+      transition: color 0.3s ease;
+    }
+
+    a:hover {
+      color: #023e8a;
+      text-decoration: underline;
+    }
+
+    header {
+      background: linear-gradient(90deg, #0077b6, #023e8a);
+      color: #caf0f8;
+      padding: 1rem 2rem;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-weight: 900;
+      font-size: 2rem;
+      letter-spacing: 2px;
+      font-family: 'Montserrat', sans-serif;
+      cursor: default;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 2rem;
+    }
+
+    .nav-links li a {
+      color: #ade8f4;
+      font-weight: 600;
+      cursor: pointer;
+      padding-bottom: 4px;
+      border-bottom: 4px solid transparent;
+      transition: border-color 0.3s ease, color 0.3s ease;
+    }
+
+    .nav-links li a.active,
+    .nav-links li a:hover {
+      border-bottom: 4px solid #00b4d8;
+      color: #caf0f8;
+    }
+
+    #dark-mode-toggle {
+      background: none;
+      border: none;
+      color: #ade8f4;
+      font-size: 1.6rem;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+
+    #dark-mode-toggle:hover {
+      color: #00b4d8;
+    }
+
+    main {
+      flex: 1;
+      padding: 2.5rem;
+      max-width: 1300px;
+      margin: 0 auto;
+    }
+
+    footer {
+      background: linear-gradient(90deg, #0077b6, #023e8a);
+      color: #ade8f4;
+      text-align: center;
+      padding: 1rem 2rem;
+      margin-top: auto;
+      font-size: 0.9rem;
+      box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Buttons */
+    .btn-primary {
+      background: linear-gradient(45deg, #00b4d8, #0077b6);
+      color: white;
+      padding: 1rem 3rem;
+      border-radius: 40px;
+      font-weight: 800;
+      display: inline-block;
+      margin-top: 1.5rem;
+      transition: background 0.4s ease, transform 0.3s ease;
+      cursor: pointer;
+      border: none;
+      text-align: center;
+      box-shadow: 0 6px 20px rgba(0, 180, 216, 0.5);
+      font-size: 1.2rem;
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(45deg, #0077b6, #023e8a);
+      transform: scale(1.07);
+      box-shadow: 0 8px 25px rgba(0, 120, 166, 0.7);
+    }
+
+    .btn-secondary {
+      background: linear-gradient(45deg, #90e0ef, #00b4d8);
+      color: #023e8a;
+      padding: 0.7rem 1.8rem;
+      border-radius: 30px;
+      text-align: center;
+      font-weight: 700;
+      transition: background 0.4s ease, transform 0.3s ease;
+      cursor: pointer;
+      border: none;
+      display: inline-block;
+      box-shadow: 0 4px 15px rgba(144, 224, 239, 0.6);
+      font-size: 1rem;
+    }
+
+    .btn-secondary:hover {
+      background: linear-gradient(45deg, #00b4d8, #0077b6);
+      color: white;
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(0, 180, 216, 0.7);
+    }
+
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(135deg, #00b4d8, #0077b6);
+      color: white;
+      padding: 5rem 3rem;
+      text-align: center;
+      border-radius: 20px;
+      margin-bottom: 3.5rem;
+      box-shadow: 0 10px 35px rgba(0, 180, 216, 0.5);
+    }
+
+    .hero h1 {
+      font-size: 3.8rem;
+      margin-bottom: 1.2rem;
+      font-weight: 900;
+      letter-spacing: 3px;
+      text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .hero p {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 2.5rem;
+      text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Product Grid */
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2.5rem;
+    }
+
+    .product-card {
+      background-color: white;
+      border-radius: 25px;
+      padding: 2rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+      cursor: default;
+      font-size: 1.1rem;
+    }
+
+    .product-card:hover {
+      transform: translateY(-12px);
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.18);
+    }
+
+    .product-image {
+      background-color: #caf0f8;
+      height: 200px;
+      border-radius: 18px;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #0077b6;
+      font-weight: 900;
+      font-size: 1.6rem;
+      letter-spacing: 2px;
+      box-shadow: inset 0 0 20px #0077b6;
+      user-select: none;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .product-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .product-card:hover .product-image img {
+      transform: scale(1.15);
+    }
+
+    .price {
+      color: #0077b6;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      font-size: 1.3rem;
+    }
+
+    /* Form Styles */
+    form {
+      background-color: white;
+      padding: 3rem;
+      border-radius: 25px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+      max-width: 600px;
+      margin: 0 auto;
+      font-size: 1.1rem;
+    }
+
+    form label {
+      display: block;
+      margin-bottom: 0.7rem;
+      font-weight: 800;
+      color: #023e8a;
+    }
+
+    form input,
+    form textarea {
+      width: 100%;
+      padding: 0.75rem 1.2rem;
+      margin-bottom: 1.5rem;
+      border: 2px solid #90e0ef;
+      border-radius: 15px;
+      font-size: 1.1rem;
+      transition: border-color 0.3s ease;
+    }
+
+    form input:focus,
+    form textarea:focus {
+      border-color: #0077b6;
+      outline: none;
+    }
+
+    form input[type="submit"] {
+      background: linear-gradient(45deg, #0077b6, #023e8a);
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-weight: 900;
+      padding: 1rem;
+      border-radius: 40px;
+      font-size: 1.3rem;
+      box-shadow: 0 8px 25px rgba(0, 119, 182, 0.7);
+      transition: background 0.4s ease, transform 0.3s ease;
+    }
+
+    form input[type="submit"]:hover {
+      background: linear-gradient(45deg, #023e8a, #001f3f);
+      transform: scale(1.07);
+    }
+
+    /* Cart Table */
+    .cart-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0 16px;
+      margin-bottom: 2rem;
+      font-size: 1.15rem;
+    }
+
+    .cart-table th,
+    .cart-table td {
+      padding: 1.2rem 1.5rem;
+      text-align: center;
+      vertical-align: middle;
+    }
+
+    .cart-table th {
+      background-color: #023e8a;
+      color: white;
+      border-radius: 20px;
+    }
+
+    .cart-table tbody tr {
+      background-color: white;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+      border-radius: 20px;
+    }
+
+    .cart-table tbody tr td {
+      border: none;
+    }
+
+    .cart-actions button {
+      background: #d90429;
+      color: white;
+      border: none;
+      padding: 0.7rem 1.3rem;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: 800;
+      font-size: 1rem;
+      transition: background 0.3s ease;
+    }
+
+    .cart-actions button:hover {
+      background: #9b0216;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .nav-links {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .hero h1 {
+        font-size: 3rem;
+      }
+
+      .product-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .product-grid {
+        grid-template-columns: 1fr;
+      }
+
+      form {
+        padding: 2rem;
+      }
+    }
+
+    /* Hide all pages initially */
+    section.page {
+      display: none;
+    }
+
+    /* Show active page */
+    section.page.active {
+      display: block;
+    }
+
+    /* Order success message */
+    .order-success {
+      background: #b7e4c7;
+      color: #2d6a4f;
+      padding: 1.2rem;
+      border-radius: 25px;
+      margin-top: 1.5rem;
+      text-align: center;
+      font-weight: 800;
+      box-shadow: 0 6px 20px rgba(45, 106, 79, 0.3);
+      font-size: 1.1rem;
+    }
+
+    /* Dark mode */
+    body.dark-mode {
+      background: #121212;
+      color: #e0e0e0;
+    }
+
+    body.dark-mode header,
+    body.dark-mode footer {
+      background: #1a1a1a;
+      color: #80deea;
+      box-shadow: none;
+    }
+
+    body.dark-mode a {
+      color: #80deea;
+    }
+
+    body.dark-mode a:hover {
+      color: #4dd0e1;
+    }
+
+    body.dark-mode .nav-links li a {
+      color: #80deea;
+    }
+
+    body.dark-mode .nav-links li a.active,
+    body.dark-mode .nav-links li a:hover {
+      border-bottom-color: #4dd0e1;
+      color: #a7ffeb;
+    }
+
+    body.dark-mode #dark-mode-toggle {
+      color: #80deea;
+    }
+
+    body.dark-mode .hero {
+      background: linear-gradient(135deg, #004d40, #00796b);
+      box-shadow: none;
+    }
+
+    body.dark-mode .product-card {
+      background: #1e1e1e;
+      box-shadow: 0 10px 30px rgba(0, 188, 212, 0.3);
+    }
+
+    body.dark-mode .product-image {
+      background-color: #004d40;
+      color: #a7ffeb;
+      box-shadow: inset 0 0 20px #00796b;
+    }
+
+    body.dark-mode form {
+      background-color: #1e1e1e;
+      box-shadow: 0 10px 30px rgba(0, 188, 212, 0.3);
+    }
+
+    body.dark-mode form label {
+      color: #80deea;
+    }
+
+    body.dark-mode form input,
+    body.dark-mode form textarea {
+      background-color: #121212;
+      border-color: #4dd0e1;
+      color: #e0e0e0;
+    }
+
+    body.dark-mode form input[type="submit"] {
+      background: linear-gradient(45deg, #00796b, #004d40);
+      box-shadow: 0 8px 25px rgba(77, 182, 172, 0.6);
+    }
+
+    body.dark-mode .cart-table tbody tr {
+      background-color: #1e1e1e;
+      box-shadow: 0 10px 30px rgba(0, 188, 212, 0.3);
+    }
+
+    body.dark-mode .cart-table th {
+      background-color: #00796b;
+    }
+
+    body.dark-mode .cart-actions button {
+      background: #b71c1c;
+    }
+
+    body.dark-mode .cart-actions button:hover {
+      background: #7f0000;
+    }
+
+    /* Admin Panel Styles */
+    #admin-panel {
+      background: #caf0f8;
+      border-radius: 25px;
+      padding: 2rem;
+      box-shadow: 0 10px 30px rgba(0, 120, 166, 0.3);
+      max-width: 700px;
+      margin: 2rem auto 0 auto;
+      font-size: 1.1rem;
+    }
+
+    #admin-panel h2 {
+      color: #0077b6;
+      margin-bottom: 1rem;
+      font-weight: 900;
+    }
+
+    #admin-panel label {
+      font-weight: 700;
+      margin-top: 1rem;
+      display: block;
+    }
+
+    #admin-panel input,
+    #admin-panel textarea {
+      width: 100%;
+      padding: 0.6rem 1rem;
+      margin-top: 0.3rem;
+      border-radius: 15px;
+      border: 2px solid #90e0ef;
+      font-size: 1rem;
+    }
+
+    #admin-panel button {
+      margin-top: 1.5rem;
+      background: linear-gradient(45deg, #0077b6, #023e8a);
+      color: white;
+      border: none;
+      padding: 1rem 2.5rem;
+      border-radius: 40px;
+      font-weight: 900;
+      font-size: 1.1rem;
+      cursor: pointer;
+      box-shadow: 0 8px 25px rgba(0, 119, 182, 0.7);
+      transition: background 0.4s ease, transform 0.3s ease;
+    }
+
+    #admin-panel button:hover {
+      background: linear-gradient(45deg, #023e8a, #001f3f);
+      transform: scale(1.07);
+    }
+
+    #admin-products-list {
+      margin-top: 2rem;
+    }
+
+    #admin-products-list h3 {
+      font-weight: 800;
+      margin-bottom: 1rem;
+      color: #0077b6;
+    }
+
+    #admin-products-list ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    #admin-products-list li {
+      background: white;
+      margin-bottom: 0.8rem;
+      padding: 0.8rem 1rem;
+      border-radius: 15px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 1.1rem;
+    }
+
+    #admin-products-list li button {
+      background: #d90429;
+      color: white;
+      border: none;
+      padding: 0.4rem 1rem;
+      border-radius: 25px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 1rem;
+      transition: background 0.3s ease;
+    }
+
+    #admin-products-list li button:hover {
+      background: #9b0216;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <nav class="navbar">
+      <div class="logo">Mfinanga Electro Shop</div>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#" data-page="login" class="active">Login</a></li>
+        <li><a href="#" data-page="register">Register</a></li>
+        <li><a href="#" data-page="home">Home</a></li>
+        <li><a href="#" data-page="products">Products</a></li>
+        <li><a href="#" data-page="cart">Cart (<span id="cart-count">0</span>)</a></li>
+        <li><a href="#" data-page="contact">Contact</a></li>
+        <li><a href="#" data-page="admin">Admin Panel</a></li>
+      </ul>
+      <button id="dark-mode-toggle" aria-label="Toggle dark mode">🌙</button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Login Page -->
+    <section id="login" class="page active">
+      <form id="login-form" style="max-width:400px; margin:auto;">
+        <h2>Login</h2>
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" required autocomplete="username" />
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" required autocomplete="current-password" />
+        <input type="submit" value="Login" />
+      </form>
+    </section>
+
+    <!-- Register Page -->
+    <section id="register" class="page">
+      <form id="register-form" style="max-width:400px; margin:auto;">
+        <h2>Register</h2>
+        <label for="reg-username">Username</label>
+        <input type="text" id="reg-username" name="reg-username" required autocomplete="username" />
+        <label for="reg-email">Email</label>
+        <input type="email" id="reg-email" name="reg-email" required autocomplete="email" />
+        <label for="reg-password">Password</label>
+        <input type="password" id="reg-password" name="reg-password" required autocomplete="new-password" />
+        <label for="reg-password-confirm">Confirm Password</label>
+        <input type="password" id="reg-password-confirm" name="reg-password-confirm" required
+          autocomplete="new-password" />
+        <input type="submit" value="Register" />
+      </form>
+    </section>
+
+    <!-- Home Page -->
+    <section id="home" class="page">
+      <section class="hero">
+        <h1>Welcome to Mfinanga Electro Shop</h1>
+        <p>Your premium destination for the latest high-end electronics</p>
+        <button class="btn-primary" data-page="products">Shop Now</button>
+      </section>
+
+      <section>
+        <h2>Featured Products</h2>
+        <div class="product-grid" id="featured-products"></div>
+      </section>
+
+      <section>
+        <h2>Special Offers</h2>
+        <p>Get up to 20% off on selected electronics this month!</p>
+      </section>
+    </section>
+
+    <!-- Products Page -->
+    <section id="products" class="page">
+      <h1>Product Catalog</h1>
+      <input type="text" id="search-input" placeholder="Search products..."
+        style="width:100%; max-width:400px; margin-bottom:1rem; padding:0.5rem; border-radius:10px; border:2px solid #90e0ef; font-weight:600;" />
+      <div class="product-grid" id="product-list"></div>
+    </section>
+
+    <!-- Product Details Page -->
+    <section id="product-details" class="page" style="max-width:700px; margin:auto;">
+      <!-- Filled dynamically -->
+    </section>
+
+    <!-- Cart Page -->
+    <section id="cart" class="page">
+      <h1>Your Shopping Cart</h1>
+      <table class="cart-table" id="cart-table">
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Subtotal</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="cart-body"></tbody>
+      </table>
+      <p id="empty-cart-msg">Your cart is empty.</p>
+      <p><strong>Total: $<span id="cart-total">0.00</span></strong></p>
+      <button class="btn-primary" id="checkout-btn">Proceed to Checkout</button>
+    </section>
+
+    <!-- Checkout Page -->
+    <section id="checkout" class="page">
+      <form id="checkout-form">
+        <h1>Checkout</h1>
+        <label for="fullname">Full Name</label>
+        <input type="text" id="fullname" name="fullname" required />
+        <label for="phone">Phone Number</label>
+        <input type="tel" id="phone" name="phone" required pattern="\\d{10,15}" placeholder="Digits only" />
+        <label for="address">Delivery Address</label>
+        <textarea id="address" name="address" rows="4" required></textarea>
+        <input type="submit" value="Place Order" />
+        <p id="order-message" class="order-success" style="display:none;">Order placed successfully!</p>
+      </form>
+    </section>
+
+    <!-- Contact Page -->
+    <section id="contact" class="page">
+      <h1>Contact Us</h1>
+      <p>Email: support@electroshop.com</p>
+      <p>Phone: +1 234 567 8900</p>
+      <p>Location: 123 Electronics Ave, Tech City</p>
+    </section>
+
+    <!-- Admin Panel -->
+    <section id="admin" class="page">
+      <div id="admin-panel">
+        <h2>Admin Panel</h2>
+        <form id="admin-add-product-form">
+          <label for="admin-name">Product Name</label>
+          <input type="text" id="admin-name" required />
+          <label for="admin-price">Price (USD)</label>
+          <input type="number" id="admin-price" min="0" step="0.01" required />
+          <label for="admin-description">Description</label>
+          <textarea id="admin-description" rows="3" required></textarea>
+          <label for="admin-specs">Specifications (key:value, comma separated)</label>
+          <input type="text" id="admin-specs" placeholder="RAM:8GB, Storage:256GB, Processor:Intel i5" required />
+          <label for="admin-availability">Availability</label>
+          <input type="text" id="admin-availability" placeholder="In Stock, Out of Stock, Limited Stock" required />
+          <button type="submit">Add Product</button>
+        </form>
+        <div id="admin-products-list">
+          <h3>Current Products</h3>
+          <ul id="admin-product-items"></ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Mfinanga Electro Shop. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Initial product catalog (Fallback/Instant Load)
+    let products = [
+      { id: 1, name: 'SkyMaster 4K Cinema Drone', price: 1299.00, description: 'Professional-grade cinema drone with 3-axis gimbal.', specs: { Resolution: "4K 60fps", FlightTime: "45 mins", GPS: "Dual Band" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1508614589041-895b88991e3e?q=80&w=800' },
+      { id: 2, name: 'Stealth Mini Drone', price: 299.00, description: 'Ultra-quiet foldable drone for beginners.', specs: { Weight: "249g", Range: "4km", Camera: "2.7K" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1507582020474-9a35b7d455d9?q=80&w=800' },
+      { id: 3, name: 'HomeCore AI Hub', price: 499.00, description: 'Master controller for all your smart devices.', specs: { Connectivity: "WiFi, Zigbee", Display: "10-inch" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1558002038-1055907df8d7?q=80&w=800' },
+      { id: 4, name: 'RoboSweep S9 Vacuum', price: 649.00, description: 'Self-emptying robot vacuum with LiDAR.', specs: { Suction: "6000Pa", Nav: "LiDAR 3.0" }, availability: 'Limited Stock', image_url: 'https://images.unsplash.com/photo-1518349619113-03114f06ac3a?q=80&w=800' },
+      { id: 5, name: 'SolarGrid Station', price: 899.00, description: '1000Wh portable power for emergencies.', specs: { Capacity: "1024Wh", Solar: "200W Input" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1658428172935-817820150247?q=80&w=800' },
+      { id: 6, name: 'VoltFast GaN Charger', price: 69.00, description: '140W quad-port GaN fast charger.', specs: { Ports: "4", Wattage: "140W" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1616531331828-59c25f4a7c03?q=80&w=800' },
+      { id: 7, name: 'AeroBook Pro 16"', price: 2499.00, description: 'Ultimate workstation with ProMotion display.', specs: { Storage: "1TB SSD", RAM: "32GB" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?q=80&w=800' },
+      { id: 8, name: 'Horizon VR Headset', price: 599.00, description: 'Wireless standalone VR/MR experience.', specs: { Resolution: "4K per eye", Refresh: "90Hz" }, availability: 'Limited Stock', image_url: 'https://images.unsplash.com/photo-1622979135225-d2ba269cf1ac?q=80&w=800' },
+      { id: 9, name: 'Apex Mechanical Keyboard', price: 189.00, description: 'Aluminum build with custom RGB.', specs: { Switch: "Gateron Brown", Mode: "Wireless" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1595225476474-87563907a212?q=80&w=800' },
+      { id: 10, name: 'SonicBlast Speaker', price: 349.00, description: '360-degree immersive room sound.', specs: { Connection: "WiFi, BT 5.2", Voice: "Built-in" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1545454675-3531b543be5d?q=80&w=800' },
+      { id: 11, name: 'SleepSync Smart Ring', price: 299.00, description: 'Titanium ring for health tracking.', specs: { Material: "Titanium", Battery: "5 days" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1631672828448-f9b604022647?q=80&w=800' },
+      { id: 12, name: 'Studio Ring Light', price: 159.00, description: '19-inch adjustable studio lighting.', specs: { CRI: "96+", Kelvin: "3200-5600K" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1552168324-d612d77725e3?q=80&w=800' },
+      { id: 13, name: 'VlogMaster Stabilizer', price: 199.00, description: '3-axis stabilizer for creators.', specs: { Battery: "12 hours", Modes: "Inception" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1582201942988-13e60e4556ee?q=80&w=800' },
+      { id: 14, name: 'Quantum Watch Core', price: 159.00, description: 'Essential stats in a sleek design.', specs: { Battery: "10 days", Screen: "LCD" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?q=80&w=800' },
+      { id: 15, name: 'Titan Mobile Neo', price: 549.00, description: 'High performance at a great value.', specs: { RAM: "8GB", Storage: "128GB" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1556656793-062ff98782ee?q=80&w=800' },
+      { id: 16, name: 'Arctic Slim Fridge', price: 1299.00, description: 'Premium cooling for modern kitchens.', specs: { Capacity: "320L", Type: "Slim" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1584622781564-1d987f7333c1?q=80&w=800' },
+      { id: 17, name: 'NextGen PS5 Pro', price: 699.00, description: 'Enhanced 4K gaming and ray-tracing.', specs: { Storage: "2TB SSD", GPU: "Pro" }, availability: 'Out of Stock', image_url: 'https://images.unsplash.com/photo-1606144042614-b2417e99c4ec?q=80&w=800' },
+      { id: 18, name: 'ShieldGuard Doorbell', price: 199.00, description: '2K HDR video doorbell with detection.', specs: { FOV: "160 Deg", Battery: "6 mo" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1518113429302-3ac55e8c156f?q=80&w=800' },
+      { id: 19, name: 'SecureTouch Lock', price: 249.00, description: 'Biometric fingerprint smart deadbolt.', specs: { Unlock: "Finger, App", Battery: "1 yr" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1558210865-c45446755a76?q=80&w=800' },
+      { id: 20, name: 'Sentinel Security Sys', price: 899.00, description: '4K Ultra-HD wired camera system.', specs: { Channels: "8", HDD: "2TB" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1557597774-9d2739f85a76?q=80&w=800' },
+      { id: 21, name: 'VocalStream Studio Mic', price: 299.00, description: 'Professional condenser microphone.', specs: { Pattern: "Cardioid", BitRate: "24-bit" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1590602847861-f357a9332bbc?q=80&w=800' },
+      { id: 22, name: 'AudioRef Monitors', price: 449.00, description: 'Accurate studio reference speakers.', specs: { Woofer: "5.25 inch", Power: "140W" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1589003077984-894e133dabab?q=80&w=800' },
+      { id: 23, name: 'ScanWay Smart Scale', price: 79.00, description: 'Bluetooth body composition scale.', specs: { Metrics: "13 Stats", Sync: "Apple/Google" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1591123720164-de1348028a82?q=80&w=800' },
+      { id: 24, name: 'Recharge Percussion Gun', price: 149.00, description: 'Powerful massage for muscle recovery.', specs: { Speeds: "20", Heads: "6" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1627384113743-6bd5a479fffd?q=80&w=800' },
+      { id: 25, name: 'Horizon 49" Curved', price: 1199.00, description: 'Massive ultra-wide gaming monitor.', specs: { Refresh: "240Hz", Tech: "QLED" }, availability: 'Limited Stock', image_url: 'https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?q=80&w=800' },
+      { id: 26, name: 'Ghost RGB Mouse', price: 89.00, description: 'Ultra-lightweight wireless mouse.', specs: { DPI: "26k", Weight: "55g" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1615663248861-40c2466ba41e?q=80&w=800' },
+      { id: 27, name: 'Throne Pro Chair', price: 399.00, description: 'Ergonomic racing-style chair.', specs: { Tilt: "165 Deg", Material: "PU" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1598550476439-6847785fce6e?q=80&w=800' },
+      { id: 28, name: 'PureAir H13 Purifier', price: 249.00, description: 'Smart filter for large spaces.', specs: { CADR: "400", Sensors: "PM2.5" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1614725055042-30e797d022e3?q=80&w=800' },
+      { id: 29, name: 'Aura RGB Strip', price: 49.00, description: 'Gradient light strip with music sync.', specs: { Length: "5m", LEDs: "Addressable" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1563124417-6fc03c401309?q=80&w=800' },
+      { id: 30, name: 'GlowSphere Lamp', price: 79.00, description: 'Smart spherical ambient lamp.', specs: { Colors: "16M+", Mode: "Scene Sync" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1542728928-1413ed0081d6?q=80&w=800' },
+      { id: 31, name: 'DataBolt 2TB SSD', price: 179.00, description: 'Rugged ultra-fast external storage.', specs: { Speed: "1050MB/s", Drop: "2m" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1591405351990-4726e331f141?q=80&w=800' },
+      { id: 32, name: 'ArtFlow Pro Tablet', price: 349.00, description: '13-inch pen display for artists.', specs: { Gamut: "120% sRGB", Pen: "8k Levels" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=800' },
+      { id: 33, name: 'DualVision Duo Laptop', price: 2199.00, description: 'Laptop with dual OLED displays.', specs: { Screen: "14x2", CPU: "i9" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?q=80&w=800' },
+      { id: 34, name: 'RetroPlay Console', price: 129.00, description: 'Handheld with 5000+ classic games.', specs: { Screen: "3.5 inch", Games: "5k" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1526509867162-5b0c0ed1b4b6?q=80&w=800' },
+      { id: 35, name: 'DreamTune Buds', price: 199.00, description: 'Noise-masking sleep buds.', specs: { Battery: "10 hrs", Profile: "Low" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1590658268037-6bf12165a8df?q=80&w=800' },
+      { id: 36, name: 'NetForce WiFi 6E', price: 299.00, description: 'Tri-band high-speed mesh router.', specs: { Speed: "AXE11k", Coverage: "3.5k" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?q=80&w=800' },
+      { id: 37, name: 'VinylPro Turntable', price: 599.00, description: 'Modern turntable with Bluetooth out.', specs: { Platter: "Alu", BT: "Out" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1603048588665-791ca8aea617?q=80&w=800' }
+    ];
+
+    // Fetch products from database
+    async function fetchProducts() {
+      try {
+        const resp = await fetch('api.php?action=getProducts');
+        const rawProducts = await resp.json();
+
+        // Map raw database strings to correct JS types
+        products = rawProducts.map(p => ({
+          ...p,
+          id: Number(p.id),
+          price: parseFloat(p.price),
+          specs: typeof p.specs === 'string' ? JSON.parse(p.specs) : p.specs
+        }));
+
+        // Update UI if necessary
+        if (document.getElementById('products').classList.contains('active')) {
+          renderProductsList(products);
+        }
+        if (document.getElementById('home').classList.contains('active')) {
+          renderFeaturedProducts();
+        }
+      } catch (err) {
+        console.error("Failed to fetch products:", err);
+      }
+    }
+
+    // Utility functions
+    function getProductById(id) {
+      return products.find(p => p.id === Number(id));
+    }
+
+    // Cart management using localStorage
+    function getCart() {
+      const cart = localStorage.getItem('cart');
+      return cart ? JSON.parse(cart) : {};
+    }
+    function saveCart(cart) {
+      localStorage.setItem('cart', JSON.stringify(cart));
+    }
+    function addToCart(productId, quantity = 1) {
+      const cart = getCart();
+      if (cart[productId]) {
+        cart[productId] += quantity;
+      } else {
+        cart[productId] = quantity;
+      }
+      saveCart(cart);
+    }
+    function removeFromCart(productId) {
+      const cart = getCart();
+      delete cart[productId];
+      saveCart(cart);
+    }
+    function updateCart(productId, quantity) {
+      const cart = getCart();
+      if (quantity <= 0) {
+        delete cart[productId];
+      } else {
+        cart[productId] = quantity;
+      }
+      saveCart(cart);
+    }
+    function getCartCount() {
+      const cart = getCart();
+      return Object.values(cart).reduce((acc, qty) => acc + qty, 0);
+    }
+    function getCartTotal() {
+      const cart = getCart();
+      let total = 0;
+      for (const id in cart) {
+        const product = getProductById(id);
+        if (product) {
+          total += product.price * cart[id];
+        }
+      }
+      return total;
+    }
+    function updateCartCount() {
+      const cartCountElem = document.getElementById('cart-count');
+      if (cartCountElem) {
+        cartCountElem.textContent = getCartCount();
+      }
+    }
+
+    // Navigation and page management
+    const navLinks = document.querySelectorAll('.nav-links a');
+    const pages = document.querySelectorAll('section.page');
+
+    function showPage(pageId) {
+      pages.forEach(page => {
+        page.classList.toggle('active', page.id === pageId);
+      });
+      navLinks.forEach(link => {
+        link.classList.toggle('active', link.dataset.page === pageId);
+      });
+      if (pageId === 'cart') {
+        renderCartTable();
+      } else if (pageId === 'products') {
+        renderProductsList(products);
+      } else if (pageId === 'home') {
+        renderFeaturedProducts();
+      } else if (pageId === 'admin') {
+        renderAdminProducts();
+      }
+      if (pageId !== 'product-details') {
+        document.getElementById('product-details').innerHTML = '';
+      }
+    }
+
+    navLinks.forEach(link => {
+      link.addEventListener('click', e => {
+        e.preventDefault();
+        const page = link.dataset.page;
+        showPage(page);
+      });
+    });
+
+    // Dark mode toggle
+    const darkModeToggle = document.getElementById('dark-mode-toggle');
+    darkModeToggle.addEventListener('click', () => {
+      document.body.classList.toggle('dark-mode');
+      if (document.body.classList.contains('dark-mode')) {
+        darkModeToggle.textContent = '☀️';
+      } else {
+        darkModeToggle.textContent = '🌙';
+      }
+    });
+
+    // Featured products on home page
+    const featuredProductsContainer = document.getElementById('featured-products');
+    function renderFeaturedProducts() {
+      featuredProductsContainer.innerHTML = '';
+      const featured = products.slice(0, 3);
+      featured.forEach(p => {
+        const card = document.createElement('article');
+        card.className = 'product-card';
+        card.innerHTML = `
+        <div class="product-image"><img src="${p.image_url}" alt="${p.name}" style="width:100%; height:100%; object-fit:cover; border-radius:18px;"></div>
+        <h3>${p.name}</h3>
+        <p class="price">$${p.price.toFixed(2)}</p>
+        <p>${p.description}</p>
+        <button class="btn-secondary" data-id="${p.id}">View Details</button>
+      `;
+        card.querySelector('button').addEventListener('click', () => {
+          showProductDetails(p.id);
+        });
+        featuredProductsContainer.appendChild(card);
+      });
+    }
+
+    // Products page
+    const productList = document.getElementById('product-list');
+    const searchInput = document.getElementById('search-input');
+
+    function renderProductsList(productsToRender) {
+      productList.innerHTML = '';
+      if (productsToRender.length === 0) {
+        productList.innerHTML = '<p>No products found.</p>';
+        return;
+      }
+      productsToRender.forEach(p => {
+        const card = document.createElement('article');
+        card.className = 'product-card';
+        card.innerHTML = `
+        <div class="product-image"><img src="${p.image_url}" alt="${p.name}" style="width:100%; height:100%; object-fit:cover; border-radius:18px;"></div>
+        <h3>${p.name}</h3>
+        <p class="price">$${p.price.toFixed(2)}</p>
+        <p>${p.description}</p>
+        <button class="btn-secondary add-to-cart" data-id="${p.id}">Add to Cart</button>
+        <button class="btn-secondary view-details" data-id="${p.id}">View Details</button>
+      `;
+        card.querySelector('.add-to-cart').addEventListener('click', () => {
+          addToCart(p.id);
+          updateCartCount();
+          alert('Product added to cart.');
+        });
+        card.querySelector('.view-details').addEventListener('click', () => {
+          showProductDetails(p.id);
+        });
+        productList.appendChild(card);
+      });
+    }
+
+    searchInput.addEventListener('input', () => {
+      const query = searchInput.value.toLowerCase();
+      const filtered = products.filter(p => p.name.toLowerCase().includes(query));
+      renderProductsList(filtered);
+    });
+
+    // Show product details page
+    const productDetailsSection = document.getElementById('product-details');
+    function showProductDetails(productId) {
+      const product = getProductById(productId);
+      if (!product) {
+        productDetailsSection.innerHTML = '<p>Product not found.</p>';
+      } else {
+        productDetailsSection.innerHTML = `
+        <button class="btn-secondary" id="back-to-products">← Back to Products</button>
+        <h1>${product.name}</h1>
+        <div class="product-image" style="height: 320px; margin-bottom: 1.5rem;"><img src="${product.image_url}" alt="${product.name}" style="width:100%; height:100%; object-fit:cover; border-radius:18px;"></div>
+        <p class="price">$${product.price.toFixed(2)}</p>
+        <p>${product.description}</p>
+        <h3>Specifications:</h3>
+        <ul>
+          ${Object.entries(product.specs).map(([key, val]) => `<li><strong>${key}:</strong> ${val}</li>`).join('')}
+        </ul>
+        <p><strong>Availability:</strong> ${product.availability}</p>
+        <button class="btn-primary" id="add-to-cart-btn">Add to Cart</button>
+      `;
+        document.getElementById('add-to-cart-btn').addEventListener('click', () => {
+          addToCart(product.id);
+          updateCartCount();
+          alert('Product added to cart.');
+        });
+        document.getElementById('back-to-products').addEventListener('click', () => {
+          showPage('products');
+        });
+        showPage('product-details');
+      }
+    }
+
+    // Cart page
+    const cartBody = document.getElementById('cart-body');
+    const cartTotalElem = document.getElementById('cart-total');
+    const emptyCartMsg = document.getElementById('empty-cart-msg');
+    const checkoutBtn = document.getElementById('checkout-btn');
+
+    function renderCartTable() {
+      const cart = getCart();
+      const ids = Object.keys(cart);
+      if (ids.length === 0) {
+        cartBody.innerHTML = '';
+        emptyCartMsg.style.display = 'block';
+        checkoutBtn.style.display = 'none';
+        cartTotalElem.textContent = '0.00';
+        updateCartCount();
+        return;
+      }
+      emptyCartMsg.style.display = 'none';
+      checkoutBtn.style.display = 'inline-block';
+      cartBody.innerHTML = '';
+      let total = 0;
+      ids.forEach(id => {
+        const product = getProductById(id);
+        const qty = cart[id];
+        const subtotal = product.price * qty;
+        total += subtotal;
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+        <td>${product.name}</td>
+        <td>$${product.price.toFixed(2)}</td>
+        <td><input type="number" min="1" value="${qty}" data-id="${id}" class="qty-input" style="width:70px; font-size:1.1rem;"/></td>
+        <td>$${subtotal.toFixed(2)}</td>
+        <td class="cart-actions"><button data-id="${id}" class="remove-btn">Remove</button></td>
+      `;
+        cartBody.appendChild(tr);
+      });
+      cartTotalElem.textContent = total.toFixed(2);
+      updateCartCount();
+    }
+
+    cartBody.addEventListener('input', e => {
+      if (e.target.classList.contains('qty-input')) {
+        const id = e.target.getAttribute('data-id');
+        let val = parseInt(e.target.value);
+        if (isNaN(val) || val < 1) {
+          val = 1;
+          e.target.value = val;
+        }
+        updateCart(id, val);
+        renderCartTable();
+      }
+    });
+
+    cartBody.addEventListener('click', e => {
+      if (e.target.classList.contains('remove-btn')) {
+        const id = e.target.getAttribute('data-id');
+        removeFromCart(id);
+        renderCartTable();
+      }
+    });
+
+    checkoutBtn.addEventListener('click', () => {
+      showPage('checkout');
+    });
+
+    // Checkout form
+    const checkoutForm = document.getElementById('checkout-form');
+    const orderMessage = document.getElementById('order-message');
+
+    checkoutForm.addEventListener('submit', async e => {
+      e.preventDefault();
+      const cart = getCart();
+      if (Object.keys(cart).length === 0) {
+        alert('Your cart is empty.');
+        return;
+      }
+      if (!validateForm(checkoutForm)) {
+        alert('Please fill all fields correctly.');
+        return;
+      }
+
+      const orderData = {
+        fullname: checkoutForm.fullname.value.trim(),
+        phone: checkoutForm.phone.value.trim(),
+        address: checkoutForm.address.value.trim(),
+        total_amount: getCartTotal(),
+        items: Object.keys(cart).map(id => {
+          const p = getProductById(id);
+          return { id: p.id, quantity: cart[id], price: p.price };
+        })
+      };
+
+      try {
+        const resp = await fetch('api.php?action=placeOrder', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(orderData)
+        });
+        const result = await resp.json();
+        if (result.success) {
+          orderMessage.style.display = 'block';
+          checkoutForm.reset();
+          localStorage.removeItem('cart');
+          updateCartCount();
+        } else {
+          alert("Error placing order: " + result.error);
+        }
+      } catch (err) {
+        console.error(err);
+        alert("Network error.");
+      }
+    });
+
+    // User session state
+    let currentUser = JSON.parse(localStorage.getItem('user')) || null;
+    function updateNav() {
+      const loginLink = document.querySelector('[data-page="login"]');
+      const registerLink = document.querySelector('[data-page="register"]');
+      const adminLink = document.querySelector('[data-page="admin"]');
+
+      if (currentUser) {
+        loginLink.textContent = `Logout (${currentUser.username})`;
+        loginLink.dataset.page = 'logout';
+        registerLink.style.display = 'none';
+        adminLink.style.display = (currentUser.role === 'admin') ? 'block' : 'none';
+      } else {
+        loginLink.textContent = 'Login';
+        loginLink.dataset.page = 'login';
+        registerLink.style.display = 'block';
+        adminLink.style.display = 'none';
+      }
+    }
+
+    // Handle Logout
+    async function handleLogout() {
+      await fetch('auth.php?action=logout');
+      currentUser = null;
+      localStorage.removeItem('user');
+      updateNav();
+      showPage('home');
+    }
+
+    // Login form
+    const loginForm = document.getElementById('login-form');
+    loginForm.addEventListener('submit', async e => {
+      e.preventDefault();
+      const data = {
+        username: loginForm.username.value.trim(),
+        password: loginForm.password.value.trim()
+      };
+      try {
+        const resp = await fetch('auth.php?action=login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+        const result = await resp.json();
+        if (result.success) {
+          currentUser = result.user;
+          localStorage.setItem('user', JSON.stringify(currentUser));
+          updateNav();
+          alert('Login successful!');
+          showPage('home');
+        } else {
+          alert(result.error);
+        }
+      } catch (err) {
+        alert("Login failed.");
+      }
+    });
+
+    // Register form
+    const registerForm = document.getElementById('register-form');
+    registerForm.addEventListener('submit', async e => {
+      e.preventDefault();
+      const data = {
+        username: registerForm['reg-username'].value.trim(),
+        email: registerForm['reg-email'].value.trim(),
+        password: registerForm['reg-password'].value.trim(),
+        confirmPassword: registerForm['reg-password-confirm'].value.trim()
+      };
+
+      if (data.password !== data.confirmPassword) {
+        alert('Passwords do not match.');
+        return;
+      }
+
+      try {
+        const resp = await fetch('auth.php?action=register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+        const result = await resp.json();
+        if (result.success) {
+          alert(`Registration successful! Please login.`);
+          registerForm.reset();
+          showPage('login');
+        } else {
+          alert(result.error);
+        }
+      } catch (err) {
+        alert("Registration failed.");
+      }
+    });
+
+    // Form validation helper
+    function validateForm(form) {
+      const inputs = form.querySelectorAll('input[required], textarea[required]');
+      for (const input of inputs) {
+        if (!input.value.trim()) {
+          input.focus();
+          return false;
+        }
+      }
+      return true;
+    }
+
+    // Admin Panel
+    const adminForm = document.getElementById('admin-add-product-form');
+    const adminProductList = document.getElementById('admin-product-items');
+
+    async function renderAdminProducts() {
+      adminProductList.innerHTML = '';
+      products.forEach(p => {
+        const li = document.createElement('li');
+        li.textContent = `${p.name} - $${p.price.toFixed(2)}`;
+        const btn = document.createElement('button');
+        btn.textContent = 'Remove';
+        btn.addEventListener('click', async () => {
+          if (confirm(`Remove product "${p.name}"?`)) {
+            const resp = await fetch('api.php?action=removeProduct', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ id: p.id })
+            });
+            const result = await resp.json();
+            if (result.success) {
+              await fetchProducts();
+              renderAdminProducts();
+            }
+          }
+        });
+        li.appendChild(btn);
+        adminProductList.appendChild(li);
+      });
+    }
+
+    adminForm.addEventListener('submit', async e => {
+      e.preventDefault();
+      const name = document.getElementById('admin-name').value.trim();
+      const price = parseFloat(document.getElementById('admin-price').value);
+      const description = document.getElementById('admin-description').value.trim();
+      const specsRaw = document.getElementById('admin-specs').value.trim();
+      const availability = document.getElementById('admin-availability').value.trim();
+
+      if (!name || isNaN(price) || !description || !specsRaw || !availability) {
+        alert('Please fill all fields correctly.');
+        return;
+      }
+
+      const specs = {};
+      specsRaw.split(',').forEach(pair => {
+        const [key, val] = pair.split(':').map(s => s.trim());
+        if (key && val) specs[key] = val;
+      });
+
+      try {
+        const resp = await fetch('api.php?action=addProduct', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, price, description, specs, availability })
+        });
+        const result = await resp.json();
+        if (result.success) {
+          alert(`Product "${name}" added successfully!`);
+          adminForm.reset();
+          await fetchProducts();
+          renderAdminProducts();
+        }
+      } catch (err) {
+        alert("Failed to add product.");
+      }
+    });
+
+    // Override showPage for logout
+    const originalShowPage = showPage;
+    showPage = function (pageId) {
+      if (pageId === 'logout') {
+        handleLogout();
+        return;
+      }
+      originalShowPage(pageId);
+    };
+
+    // Initial render
+    document.addEventListener('DOMContentLoaded', async () => {
+      await fetchProducts();
+      renderAdminProducts();
+      updateCartCount();
+      updateNav();
+    });
+  </script>
+
+</body>
+
+</html>
