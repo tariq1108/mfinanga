@@ -587,7 +587,7 @@
         <li><a href="#" data-page="home">Home</a></li>
         <li><a href="#" data-page="products">Products</a></li>
         <li><a href="#" data-page="cart">Cart (<span id="cart-count">0</span>)</a></li>
-        <li><a href="#" data-page="contact">Contact</a></li>
+        <li><a href="tel:0756483650" style="color: #caf0f8; font-weight: 800;">📞 0756483650</a></li>
         <li><a href="#" data-page="admin">Admin Panel</a></li>
       </ul>
       <button id="dark-mode-toggle" aria-label="Toggle dark mode">🌙</button>
@@ -706,8 +706,8 @@
         <form id="admin-add-product-form">
           <label for="admin-name">Product Name</label>
           <input type="text" id="admin-name" required />
-          <label for="admin-price">Price (USD)</label>
-          <input type="number" id="admin-price" min="0" step="0.01" required />
+          <label for="admin-price">Price (Tsh)</label>
+          <input type="number" id="admin-price" min="0" step="1" required />
           <label for="admin-description">Description</label>
           <textarea id="admin-description" rows="3" required></textarea>
           <label for="admin-specs">Specifications (key:value, comma separated)</label>
@@ -725,49 +725,49 @@
   </main>
 
   <footer>
-    <p>&copy; 2026 Mfinanga Electro Shop. All rights reserved.</p>
+    <p>&copy; 2026 Mfinanga Electro Shop. All rights reserved. | 📞 Contact: 0756483650</p>
   </footer>
 
   <script>
     // Initial product catalog (Fallback/Instant Load)
     let products = [
-      { id: 1, name: 'SkyMaster 4K Cinema Drone', price: 1299.00, description: 'Professional-grade cinema drone with 3-axis gimbal.', specs: { Resolution: "4K 60fps", FlightTime: "45 mins", GPS: "Dual Band" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1508614589041-895b88991e3e?q=80&w=800' },
-      { id: 2, name: 'Stealth Mini Drone', price: 299.00, description: 'Ultra-quiet foldable drone for beginners.', specs: { Weight: "249g", Range: "4km", Camera: "2.7K" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1507582020474-9a35b7d455d9?q=80&w=800' },
-      { id: 3, name: 'HomeCore AI Hub', price: 499.00, description: 'Master controller for all your smart devices.', specs: { Connectivity: "WiFi, Zigbee", Display: "10-inch" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1558002038-1055907df8d7?q=80&w=800' },
-      { id: 4, name: 'RoboSweep S9 Vacuum', price: 649.00, description: 'Self-emptying robot vacuum with LiDAR.', specs: { Suction: "6000Pa", Nav: "LiDAR 3.0" }, availability: 'Limited Stock', image_url: 'https://images.unsplash.com/photo-1518349619113-03114f06ac3a?q=80&w=800' },
-      { id: 5, name: 'SolarGrid Station', price: 899.00, description: '1000Wh portable power for emergencies.', specs: { Capacity: "1024Wh", Solar: "200W Input" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1658428172935-817820150247?q=80&w=800' },
-      { id: 6, name: 'VoltFast GaN Charger', price: 69.00, description: '140W quad-port GaN fast charger.', specs: { Ports: "4", Wattage: "140W" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1616531331828-59c25f4a7c03?q=80&w=800' },
-      { id: 7, name: 'AeroBook Pro 16"', price: 2499.00, description: 'Ultimate workstation with ProMotion display.', specs: { Storage: "1TB SSD", RAM: "32GB" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?q=80&w=800' },
-      { id: 8, name: 'Horizon VR Headset', price: 599.00, description: 'Wireless standalone VR/MR experience.', specs: { Resolution: "4K per eye", Refresh: "90Hz" }, availability: 'Limited Stock', image_url: 'https://images.unsplash.com/photo-1622979135225-d2ba269cf1ac?q=80&w=800' },
-      { id: 9, name: 'Apex Mechanical Keyboard', price: 189.00, description: 'Aluminum build with custom RGB.', specs: { Switch: "Gateron Brown", Mode: "Wireless" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1595225476474-87563907a212?q=80&w=800' },
-      { id: 10, name: 'SonicBlast Speaker', price: 349.00, description: '360-degree immersive room sound.', specs: { Connection: "WiFi, BT 5.2", Voice: "Built-in" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1545454675-3531b543be5d?q=80&w=800' },
-      { id: 11, name: 'SleepSync Smart Ring', price: 299.00, description: 'Titanium ring for health tracking.', specs: { Material: "Titanium", Battery: "5 days" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1631672828448-f9b604022647?q=80&w=800' },
-      { id: 12, name: 'Studio Ring Light', price: 159.00, description: '19-inch adjustable studio lighting.', specs: { CRI: "96+", Kelvin: "3200-5600K" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1552168324-d612d77725e3?q=80&w=800' },
-      { id: 13, name: 'VlogMaster Stabilizer', price: 199.00, description: '3-axis stabilizer for creators.', specs: { Battery: "12 hours", Modes: "Inception" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1582201942988-13e60e4556ee?q=80&w=800' },
-      { id: 14, name: 'Quantum Watch Core', price: 159.00, description: 'Essential stats in a sleek design.', specs: { Battery: "10 days", Screen: "LCD" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?q=80&w=800' },
-      { id: 15, name: 'Titan Mobile Neo', price: 549.00, description: 'High performance at a great value.', specs: { RAM: "8GB", Storage: "128GB" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1556656793-062ff98782ee?q=80&w=800' },
-      { id: 16, name: 'Arctic Slim Fridge', price: 1299.00, description: 'Premium cooling for modern kitchens.', specs: { Capacity: "320L", Type: "Slim" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1584622781564-1d987f7333c1?q=80&w=800' },
-      { id: 17, name: 'NextGen PS5 Pro', price: 699.00, description: 'Enhanced 4K gaming and ray-tracing.', specs: { Storage: "2TB SSD", GPU: "Pro" }, availability: 'Out of Stock', image_url: 'https://images.unsplash.com/photo-1606144042614-b2417e99c4ec?q=80&w=800' },
-      { id: 18, name: 'ShieldGuard Doorbell', price: 199.00, description: '2K HDR video doorbell with detection.', specs: { FOV: "160 Deg", Battery: "6 mo" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1518113429302-3ac55e8c156f?q=80&w=800' },
-      { id: 19, name: 'SecureTouch Lock', price: 249.00, description: 'Biometric fingerprint smart deadbolt.', specs: { Unlock: "Finger, App", Battery: "1 yr" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1558210865-c45446755a76?q=80&w=800' },
-      { id: 20, name: 'Sentinel Security Sys', price: 899.00, description: '4K Ultra-HD wired camera system.', specs: { Channels: "8", HDD: "2TB" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1557597774-9d2739f85a76?q=80&w=800' },
-      { id: 21, name: 'VocalStream Studio Mic', price: 299.00, description: 'Professional condenser microphone.', specs: { Pattern: "Cardioid", BitRate: "24-bit" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1590602847861-f357a9332bbc?q=80&w=800' },
-      { id: 22, name: 'AudioRef Monitors', price: 449.00, description: 'Accurate studio reference speakers.', specs: { Woofer: "5.25 inch", Power: "140W" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1589003077984-894e133dabab?q=80&w=800' },
-      { id: 23, name: 'ScanWay Smart Scale', price: 79.00, description: 'Bluetooth body composition scale.', specs: { Metrics: "13 Stats", Sync: "Apple/Google" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1591123720164-de1348028a82?q=80&w=800' },
-      { id: 24, name: 'Recharge Percussion Gun', price: 149.00, description: 'Powerful massage for muscle recovery.', specs: { Speeds: "20", Heads: "6" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1627384113743-6bd5a479fffd?q=80&w=800' },
-      { id: 25, name: 'Horizon 49" Curved', price: 1199.00, description: 'Massive ultra-wide gaming monitor.', specs: { Refresh: "240Hz", Tech: "QLED" }, availability: 'Limited Stock', image_url: 'https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?q=80&w=800' },
-      { id: 26, name: 'Ghost RGB Mouse', price: 89.00, description: 'Ultra-lightweight wireless mouse.', specs: { DPI: "26k", Weight: "55g" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1615663248861-40c2466ba41e?q=80&w=800' },
-      { id: 27, name: 'Throne Pro Chair', price: 399.00, description: 'Ergonomic racing-style chair.', specs: { Tilt: "165 Deg", Material: "PU" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1598550476439-6847785fce6e?q=80&w=800' },
-      { id: 28, name: 'PureAir H13 Purifier', price: 249.00, description: 'Smart filter for large spaces.', specs: { CADR: "400", Sensors: "PM2.5" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1614725055042-30e797d022e3?q=80&w=800' },
-      { id: 29, name: 'Aura RGB Strip', price: 49.00, description: 'Gradient light strip with music sync.', specs: { Length: "5m", LEDs: "Addressable" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1563124417-6fc03c401309?q=80&w=800' },
-      { id: 30, name: 'GlowSphere Lamp', price: 79.00, description: 'Smart spherical ambient lamp.', specs: { Colors: "16M+", Mode: "Scene Sync" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1542728928-1413ed0081d6?q=80&w=800' },
-      { id: 31, name: 'DataBolt 2TB SSD', price: 179.00, description: 'Rugged ultra-fast external storage.', specs: { Speed: "1050MB/s", Drop: "2m" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1591405351990-4726e331f141?q=80&w=800' },
-      { id: 32, name: 'ArtFlow Pro Tablet', price: 349.00, description: '13-inch pen display for artists.', specs: { Gamut: "120% sRGB", Pen: "8k Levels" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=800' },
-      { id: 33, name: 'DualVision Duo Laptop', price: 2199.00, description: 'Laptop with dual OLED displays.', specs: { Screen: "14x2", CPU: "i9" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?q=80&w=800' },
-      { id: 34, name: 'RetroPlay Console', price: 129.00, description: 'Handheld with 5000+ classic games.', specs: { Screen: "3.5 inch", Games: "5k" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1526509867162-5b0c0ed1b4b6?q=80&w=800' },
-      { id: 35, name: 'DreamTune Buds', price: 199.00, description: 'Noise-masking sleep buds.', specs: { Battery: "10 hrs", Profile: "Low" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1590658268037-6bf12165a8df?q=80&w=800' },
-      { id: 36, name: 'NetForce WiFi 6E', price: 299.00, description: 'Tri-band high-speed mesh router.', specs: { Speed: "AXE11k", Coverage: "3.5k" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?q=80&w=800' },
-      { id: 37, name: 'VinylPro Turntable', price: 599.00, description: 'Modern turntable with Bluetooth out.', specs: { Platter: "Alu", BT: "Out" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1603048588665-791ca8aea617?q=80&w=800' }
+      { id: 1, name: 'SkyMaster 4K Cinema Drone', price: 3377400, description: 'Professional-grade cinema drone with 3-axis gimbal.', specs: { Resolution: "4K 60fps", FlightTime: "45 mins", GPS: "Dual Band" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1508614589041-895b88991e3e?q=80&w=800' },
+      { id: 2, name: 'Stealth Mini Drone', price: 777400, description: 'Ultra-quiet foldable drone for beginners.', specs: { Weight: "249g", Range: "4km", Camera: "2.7K" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1507582020474-9a35b7d455d9?q=80&w=800' },
+      { id: 3, name: 'HomeCore AI Hub', price: 1297400, description: 'Master controller for all your smart devices.', specs: { Connectivity: "WiFi, Zigbee", Display: "10-inch" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1558002038-1055907df8d7?q=80&w=800' },
+      { id: 4, name: 'RoboSweep S9 Vacuum', price: 1687400, description: 'Self-emptying robot vacuum with LiDAR.', specs: { Suction: "6000Pa", Nav: "LiDAR 3.0" }, availability: 'Limited Stock', image_url: 'https://images.unsplash.com/photo-1518349619113-03114f06ac3a?q=80&w=800' },
+      { id: 5, name: 'SolarGrid Station', price: 2337400, description: '1000Wh portable power for emergencies.', specs: { Capacity: "1024Wh", Solar: "200W Input" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1658428172935-817820150247?q=80&w=800' },
+      { id: 6, name: 'VoltFast GaN Charger', price: 179400, description: '140W quad-port GaN fast charger.', specs: { Ports: "4", Wattage: "140W" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1616531331828-59c25f4a7c03?q=80&w=800' },
+      { id: 7, name: 'AeroBook Pro 16"', price: 6497400, description: 'Ultimate workstation with ProMotion display.', specs: { Storage: "1TB SSD", RAM: "32GB" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?q=80&w=800' },
+      { id: 8, name: 'Horizon VR Headset', price: 1557400, description: 'Wireless standalone VR/MR experience.', specs: { Resolution: "4K per eye", Refresh: "90Hz" }, availability: 'Limited Stock', image_url: 'https://images.unsplash.com/photo-1622979135225-d2ba269cf1ac?q=80&w=800' },
+      { id: 9, name: 'Apex Mechanical Keyboard', price: 491400, description: 'Aluminum build with custom RGB.', specs: { Switch: "Gateron Brown", Mode: "Wireless" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1595225476474-87563907a212?q=80&w=800' },
+      { id: 10, name: 'SonicBlast Speaker', price: 907400, description: '360-degree immersive room sound.', specs: { Connection: "WiFi, BT 5.2", Voice: "Built-in" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1545454675-3531b543be5d?q=80&w=800' },
+      { id: 11, name: 'SleepSync Smart Ring', price: 777400, description: 'Titanium ring for health tracking.', specs: { Material: "Titanium", Battery: "5 days" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1631672828448-f9b604022647?q=80&w=800' },
+      { id: 12, name: 'Studio Ring Light', price: 413400, description: '19-inch adjustable studio lighting.', specs: { CRI: "96+", Kelvin: "3200-5600K" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1552168324-d612d77725e3?q=80&w=800' },
+      { id: 13, name: 'VlogMaster Stabilizer', price: 517400, description: '3-axis stabilizer for creators.', specs: { Battery: "12 hours", Modes: "Inception" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1582201942988-13e60e4556ee?q=80&w=800' },
+      { id: 14, name: 'Quantum Watch Core', price: 413400, description: 'Essential stats in a sleek design.', specs: { Battery: "10 days", Screen: "LCD" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?q=80&w=800' },
+      { id: 15, name: 'Titan Mobile Neo', price: 1427400, description: 'High performance at a great value.', specs: { RAM: "8GB", Storage: "128GB" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1556656793-062ff98782ee?q=80&w=800' },
+      { id: 16, name: 'Arctic Slim Fridge', price: 3377400, description: 'Premium cooling for modern kitchens.', specs: { Capacity: "320L", Type: "Slim" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1584622781564-1d987f7333c1?q=80&w=800' },
+      { id: 17, name: 'NextGen PS5 Pro', price: 1817400, description: 'Enhanced 4K gaming and ray-tracing.', specs: { Storage: "2TB SSD", GPU: "Pro" }, availability: 'Out of Stock', image_url: 'https://images.unsplash.com/photo-1606144042614-b2417e99c4ec?q=80&w=800' },
+      { id: 18, name: 'ShieldGuard Doorbell', price: 517400, description: '2K HDR video doorbell with detection.', specs: { FOV: "160 Deg", Battery: "6 mo" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1518113429302-3ac55e8c156f?q=80&w=800' },
+      { id: 19, name: 'SecureTouch Lock', price: 647400, description: 'Biometric fingerprint smart deadbolt.', specs: { Unlock: "Finger, App", Battery: "1 yr" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1558210865-c45446755a76?q=80&w=800' },
+      { id: 20, name: 'Sentinel Security Sys', price: 2337400, description: '4K Ultra-HD wired camera system.', specs: { Channels: "8", HDD: "2TB" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1557597774-9d2739f85a76?q=80&w=800' },
+      { id: 21, name: 'VocalStream Studio Mic', price: 777400, description: 'Professional condenser microphone.', specs: { Pattern: "Cardioid", BitRate: "24-bit" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1590602847861-f357a9332bbc?q=80&w=800' },
+      { id: 22, name: 'AudioRef Monitors', price: 1167400, description: 'Accurate studio reference speakers.', specs: { Woofer: "5.25 inch", Power: "140W" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1589003077984-894e133dabab?q=80&w=800' },
+      { id: 23, name: 'ScanWay Smart Scale', price: 205400, description: 'Bluetooth body composition scale.', specs: { Metrics: "13 Stats", Sync: "Apple/Google" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1591123720164-de1348028a82?q=80&w=800' },
+      { id: 24, name: 'Recharge Percussion Gun', price: 387400, description: 'Powerful massage for muscle recovery.', specs: { Speeds: "20", Heads: "6" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1627384113743-6bd5a479fffd?q=80&w=800' },
+      { id: 25, name: 'Horizon 49" Curved', price: 3117400, description: 'Massive ultra-wide gaming monitor.', specs: { Refresh: "240Hz", Tech: "QLED" }, availability: 'Limited Stock', image_url: 'https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?q=80&w=800' },
+      { id: 26, name: 'Ghost RGB Mouse', price: 231400, description: 'Ultra-lightweight wireless mouse.', specs: { DPI: "26k", Weight: "55g" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1615663248861-40c2466ba41e?q=80&w=800' },
+      { id: 27, name: 'Throne Pro Chair', price: 1037400, description: 'Ergonomic racing-style chair.', specs: { Tilt: "165 Deg", Material: "PU" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1598550476439-6847785fce6e?q=80&w=800' },
+      { id: 28, name: 'PureAir H13 Purifier', price: 647400, description: 'Smart filter for large spaces.', specs: { CADR: "400", Sensors: "PM2.5" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1614725055042-30e797d022e3?q=80&w=800' },
+      { id: 29, name: 'Aura RGB Strip', price: 127400, description: 'Gradient light strip with music sync.', specs: { Length: "5m", LEDs: "Addressable" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1563124417-6fc03c401309?q=80&w=800' },
+      { id: 30, name: 'GlowSphere Lamp', price: 205400, description: 'Smart spherical ambient lamp.', specs: { Colors: "16M+", Mode: "Scene Sync" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1542728928-1413ed0081d6?q=80&w=800' },
+      { id: 31, name: 'DataBolt 2TB SSD', price: 465400, description: 'Rugged ultra-fast external storage.', specs: { Speed: "1050MB/s", Drop: "2m" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1591405351990-4726e331f141?q=80&w=800' },
+      { id: 32, name: 'ArtFlow Pro Tablet', price: 907400, description: '13-inch pen display for artists.', specs: { Gamut: "120% sRGB", Pen: "8k Levels" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=800' },
+      { id: 33, name: 'DualVision Duo Laptop', price: 5717400, description: 'Laptop with dual OLED displays.', specs: { Screen: "14x2", CPU: "i9" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?q=80&w=800' },
+      { id: 34, name: 'RetroPlay Console', price: 335400, description: 'Handheld with 5000+ classic games.', specs: { Screen: "3.5 inch", Games: "5k" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1526509867162-5b0c0ed1b4b6?q=80&w=800' },
+      { id: 35, name: 'DreamTune Buds', price: 517400, description: 'Noise-masking sleep buds.', specs: { Battery: "10 hrs", Profile: "Low" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1590658268037-6bf12165a8df?q=80&w=800' },
+      { id: 36, name: 'NetForce WiFi 6E', price: 777400, description: 'Tri-band high-speed mesh router.', specs: { Speed: "AXE11k", Coverage: "3.5k" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?q=80&w=800' },
+      { id: 37, name: 'VinylPro Turntable', price: 1557400, description: 'Modern turntable with Bluetooth out.', specs: { Platter: "Alu", BT: "Out" }, availability: 'In Stock', image_url: 'https://images.unsplash.com/photo-1603048588665-791ca8aea617?q=80&w=800' }
     ];
 
     // Fetch products from database
@@ -909,7 +909,7 @@
         card.innerHTML = `
         <div class="product-image"><img src="${p.image_url}" alt="${p.name}" style="width:100%; height:100%; object-fit:cover; border-radius:18px;"></div>
         <h3>${p.name}</h3>
-        <p class="price">$${p.price.toFixed(2)}</p>
+        <p class="price">Tsh ${p.price.toLocaleString()}</p>
         <p>${p.description}</p>
         <button class="btn-secondary" data-id="${p.id}">View Details</button>
       `;
@@ -936,7 +936,7 @@
         card.innerHTML = `
         <div class="product-image"><img src="${p.image_url}" alt="${p.name}" style="width:100%; height:100%; object-fit:cover; border-radius:18px;"></div>
         <h3>${p.name}</h3>
-        <p class="price">$${p.price.toFixed(2)}</p>
+        <p class="price">Tsh ${p.price.toLocaleString()}</p>
         <p>${p.description}</p>
         <button class="btn-secondary add-to-cart" data-id="${p.id}">Add to Cart</button>
         <button class="btn-secondary view-details" data-id="${p.id}">View Details</button>
@@ -970,7 +970,7 @@
         <button class="btn-secondary" id="back-to-products">← Back to Products</button>
         <h1>${product.name}</h1>
         <div class="product-image" style="height: 320px; margin-bottom: 1.5rem;"><img src="${product.image_url}" alt="${product.name}" style="width:100%; height:100%; object-fit:cover; border-radius:18px;"></div>
-        <p class="price">$${product.price.toFixed(2)}</p>
+        <p class="price">Tsh ${product.price.toLocaleString()}</p>
         <p>${product.description}</p>
         <h3>Specifications:</h3>
         <ul>
@@ -1004,7 +1004,7 @@
         cartBody.innerHTML = '';
         emptyCartMsg.style.display = 'block';
         checkoutBtn.style.display = 'none';
-        cartTotalElem.textContent = '0.00';
+        cartTotalElem.textContent = '0';
         updateCartCount();
         return;
       }
@@ -1020,14 +1020,14 @@
         const tr = document.createElement('tr');
         tr.innerHTML = `
         <td>${product.name}</td>
-        <td>$${product.price.toFixed(2)}</td>
+        <td>Tsh ${product.price.toLocaleString()}</td>
         <td><input type="number" min="1" value="${qty}" data-id="${id}" class="qty-input" style="width:70px; font-size:1.1rem;"/></td>
-        <td>$${subtotal.toFixed(2)}</td>
+        <td>Tsh ${subtotal.toLocaleString()}</td>
         <td class="cart-actions"><button data-id="${id}" class="remove-btn">Remove</button></td>
       `;
         cartBody.appendChild(tr);
       });
-      cartTotalElem.textContent = total.toFixed(2);
+      cartTotalElem.textContent = total.toLocaleString();
       updateCartCount();
     }
 
@@ -1217,7 +1217,7 @@
       adminProductList.innerHTML = '';
       products.forEach(p => {
         const li = document.createElement('li');
-        li.textContent = `${p.name} - $${p.price.toFixed(2)}`;
+        li.textContent = `${p.name} - Tsh ${p.price.toLocaleString()}`;
         const btn = document.createElement('button');
         btn.textContent = 'Remove';
         btn.addEventListener('click', async () => {
