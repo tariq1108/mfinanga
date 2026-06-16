@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kwa Gaudensia ❤️</title>
+    <!-- Google Fonts for Premium Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #ff3366;
+            --primary-gradient: linear-gradient(135deg, #ff3366, #ff6b8b);
+            --bg-gradient: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #feada6 100%);
+            --card-bg: rgba(255, 255, 255, 0.75);
+            --card-border: rgba(255, 255, 255, 0.5);
+            --text-color: #2b0c15;
+            --text-secondary: #ff3366;
+            --shadow-color: rgba(255, 51, 102, 0.15);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--bg-gradient);
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            position: relative;
+            padding: 20px;
+        }
+
+        /* Background Music Control Button */
+        .music-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.85);
+            border: 1px solid var(--card-border);
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .music-btn:hover {
+            transform: scale(1.1);
+            background: white;
+            box-shadow: 0 6px 16px rgba(255, 51, 102, 0.2);
+        }
+
+        .music-btn.playing {
+            animation: pulse-music 1.5s infinite alternate;
+        }
+
+        @keyframes pulse-music {
+            0% { transform: scale(1); box-shadow: 0 4px 12px rgba(255, 51, 102, 0.2); }
+            100% { transform: scale(1.08); box-shadow: 0 4px 20px rgba(255, 51, 102, 0.4); }
+        }
+
+        /* Slide Sections Container */
+        .container {
+            width: 100%;
+            max-width: 600px;
+            z-index: 10;
+            position: relative;
+        }
+
+        .section {
+            display: none;
+            opacity: 0;
+        }
+
+        .active {
+            display: block;
+            animation: fadeInUp 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(35px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Card / Message Container Style */
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--card-border);
+            border-radius: 28px;
+            box-shadow: 0 10px 35px var(--shadow-color);
+            padding: 40px 30px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--text-color);
+            margin-bottom: 25px;
+            letter-spacing: 0.5px;
+        }
+
+        .image-wrapper {
+            position: relative;
+            margin: 15px auto 25px auto;
+            max-width: 380px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+            border: 6px solid white;
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .image-wrapper:hover {
+            transform: scale(1.03) rotate(1.5deg);
+        }
+
+        img {
+            width: 100%;
+            height: 380px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .message {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            line-height: 1.6;
+            color: var(--text-color);
+            margin: 20px 0;
+            white-space: pre-line;
+            font-style: italic;
+        }
+
+        .highlight-text {
+            color: var(--text-secondary);
+            font-weight: 700;
+            font-family: 'Outfit', sans-serif;
+            font-style: normal;
+            font-size: 20px;
+            margin-top: 15px;
+            display: block;
+        }
+
+        /* Buttons Styling */
+        button.action-btn {
+            font-family: 'Outfit', sans-serif;
+            padding: 16px 36px;
+            font-size: 18px;
+            font-weight: 600;
+            border: none;
+            border-radius: 50px;
+            background: var(--primary-gradient);
+            color: white;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(255, 51, 102, 0.35);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            letter-spacing: 0.5px;
+            outline: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        button.action-btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(255, 51, 102, 0.5);
+            background: linear-gradient(135deg, #ff1a53, #ff5277);
+        }
+
+        button.action-btn:active {
+            transform: translateY(-1px);
+        }
+
+        /* Final Screen Details */
+        #final-card {
+            background: rgba(43, 12, 21, 0.85); /* Dark luxurious crimson overlay */
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+        }
+
+        #final-card h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            color: #fff;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 10px rgba(255, 51, 102, 0.5);
+        }
+
+        #final-text {
+            color: #ffeef2;
+            font-size: 24px;
+            line-height: 1.8;
+            margin: 25px 0;
+            font-weight: 300;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.5);
+        }
+
+        .emoji-burst {
+            font-size: 36px;
+            margin-bottom: 15px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Falling Hearts/Particles */
+        .heart {
+            position: fixed;
+            top: -50px;
+            z-index: 1;
+            pointer-events: none;
+            user-select: none;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-50px) rotate(0deg) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: inherit;
+            }
+            90% {
+                opacity: inherit;
+            }
+            100% {
+                transform: translateY(110vh) rotate(360deg) translateX(70px);
+                opacity: 0;
+            }
+        }
+
+        /* Fireworks Canvas */
+        #fireworksCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 2;
+            pointer-events: none;
+            display: none;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 480px) {
+            .card {
+                padding: 30px 20px;
+            }
+            h1 {
+                font-size: 26px;
+            }
+            .image-wrapper img {
+                height: 280px;
+            }
+            .message {
+                font-size: 19px;
+            }
+            #final-text {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Background Music -->
+    <button id="musicToggle" class="music-btn" onclick="toggleMusic()" aria-label="Muziki wa Nyuma">🎵</button>
+    <audio id="bgMusic" loop preload="auto">
+        <!-- Royalty-free soft romantic piano track -->
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Fireworks Canvas for the End Slide -->
+    <canvas id="fireworksCanvas"></canvas>
+
+    <div class="container">
+        
+        <!-- Slide 1 -->
+        <div id="s1" class="section active">
+            <div class="card">
+                <h1>💖 Kwa Gaudensia 💖</h1>
+                <div class="image-wrapper">
+                    <img src="gaudensia1.jpg" alt="Picha ya Kwanza ya Gaudensia">
+                </div>
+                <button class="action-btn" onclick="next(1)">❤️ Endelea</button>
+            </div>
+        </div>
+
+        <!-- Slide 2 -->
+        <div id="s2" class="section">
+            <div class="card">
+                <div class="message">
+                    🥰 Gaudensia wangu,
+                    
+                    Kila ninapokuona moyo wangu hujaa furaha.
+                    Tabasamu lako hunifanya nisahau huzuni zote.
+                    
+                    <span class="highlight-text">❤️ Wewe ni mtu wa kipekee sana kwangu ❤️</span>
+                </div>
+                <button class="action-btn" onclick="next(2)">💕 Bonyeza Tena</button>
+            </div>
+        </div>
+
+        <!-- Slide 3 -->
+        <div id="s3" class="section">
+            <div class="card">
+                <h1>🌹 Malkia Wangu 🌹</h1>
+                <div class="image-wrapper">
+                    <img src="gaudensia2.jpg" alt="Picha ya Pili ya Gaudensia">
+                </div>
+                <button class="action-btn" onclick="next(3)">😘 Endelea</button>
+            </div>
+        </div>
+
+        <!-- Slide 4 -->
+        <div id="s4" class="section">
+            <div class="card">
+                <div class="message">
+                    🌹 Gaudensia,
+                    
+                    Asante kwa kuwa sehemu ya maisha yangu.
+                    Uwepo wako ni zawadi kubwa sana kwangu.
+                    Kila siku nawe ni baraka. 💖
+                </div>
+                <button class="action-btn" onclick="next(4)">💌 Bonyeza Tena</button>
+            </div>
+        </div>
+
+        <!-- Slide 5 -->
+        <div id="s5" class="section">
+            <div class="card">
+                <h1>✨ Hazina Yangu ✨</h1>
+                <div class="image-wrapper">
+                    <img src="gaudensia3.jpg" alt="Picha ya Tatu ya Gaudensia">
+                </div>
+                <button class="action-btn" onclick="next(5)">✨ Karibu Mwisho</button>
+            </div>
+        </div>
+
+        <!-- Slide 6 (Final) -->
+        <div id="s6" class="section">
+            <div id="final-card" class="card">
+                <div class="emoji-burst">🎆🥰🌹💖💋😘🎆</div>
+                <h2>Gaudensia wangu mpendwa,</h2>
+                <div id="final-text">
+                    Nakupenda leo.<br>
+                    Nakupenda kesho.<br>
+                    Nakupenda milele.<br><br>
+                    <strong>❤️❤️❤️</strong><br><br>
+                    Wewe ni furaha ya moyo wangu.
+                </div>
+                <div class="emoji-burst" style="animation-delay: 1s;">🎆 HAPPY FOREVER 🎆</div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Slide Navigation
+        function next(n) {
+            // Auto play music on first click to bypass browser audio restrictions
+            if (n === 1) {
+                const music = document.getElementById("bgMusic");
+                if (music.paused) {
+                    toggleMusic();
+                }
+            }
+
+            document.getElementById("s" + n).classList.remove("active");
+            document.getElementById("s" + (n + 1)).classList.add("active");
+            
+            if (n === 5) {
+                document.getElementById("fireworksCanvas").style.display = "block";
+                startFireworks();
+            }
+        }
+
+        // Background Music Toggle
+        function toggleMusic() {
+            const music = document.getElementById("bgMusic");
+            const btn = document.getElementById("musicToggle");
+            
+            if (music.paused) {
+                music.play().then(() => {
+                    btn.innerHTML = "🔊";
+                    btn.classList.add("playing");
+                }).catch(err => {
+                    console.log("Audio play was blocked by browser policies.");
+                });
+            } else {
+                music.pause();
+                btn.innerHTML = "🔇";
+                btn.classList.remove("playing");
+            }
+        }
+
+        // Falling Hearts / Romantic Particles
+        const shapes = ["❤️", "💖", "💕", "🌹", "✨", "🌸"];
+        const particleCount = 45;
+        
+        for (let i = 0; i < particleCount; i++) {
+            let h = document.createElement("div");
+            h.className = "heart";
+            h.innerHTML = shapes[Math.floor(Math.random() * shapes.length)];
+            h.style.left = Math.random() * 100 + "vw";
+            h.style.top = -50 - Math.random() * 100 + "px";
+            h.style.fontSize = (15 + Math.random() * 20) + "px";
+            h.style.animationDuration = (4 + Math.random() * 8) + "s";
+            h.style.animationDelay = Math.random() * 6 + "s";
+            h.style.opacity = (0.25 + Math.random() * 0.5).toString();
+            document.body.appendChild(h);
+        }
+
+        // High Performance Canvas Fireworks System
+        function startFireworks() {
+            const canvas = document.getElementById("fireworksCanvas");
+            const ctx = canvas.getContext("2d");
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            // Handle window resizing
+            window.addEventListener('resize', () => {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            });
+
+            const particles = [];
+            const rockets = [];
+
+            class Rocket {
+                constructor() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = canvas.height;
+                    // Shoot towards upper half
+                    this.targetY = canvas.height * 0.15 + Math.random() * (canvas.height * 0.45);
+                    this.speed = 4 + Math.random() * 5;
+                    this.color = `hsl(${Math.random() * 360}, 100%, 75%)`;
+                }
+                update() {
+                    this.y -= this.speed;
+                    if (this.y <= this.targetY) {
+                        this.explode();
+                        return false; // Time to explode!
+                    }
+                    return true;
+                }
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, 3.5, 0, Math.PI * 2);
+                    ctx.fillStyle = this.color;
+                    ctx.fill();
+                }
+                explode() {
+                    const count = 90 + Math.floor(Math.random() * 50);
+                    for (let i = 0; i < count; i++) {
+                        particles.push(new Particle(this.x, this.y, this.color));
+                    }
+                }
+            }
+
+            class Particle {
+                constructor(x, y, color) {
+                    this.x = x;
+                    this.y = y;
+                    this.color = color;
+                    const angle = Math.random() * Math.PI * 2;
+                    const speed = Math.random() * 7 + 1.5;
+                    this.vx = Math.cos(angle) * speed;
+                    this.vy = Math.sin(angle) * speed;
+                    this.gravity = 0.07;
+                    this.alpha = 1;
+                    this.decay = 0.012 + Math.random() * 0.015;
+                }
+                update() {
+                    this.x += this.vx;
+                    this.y += this.vy;
+                    this.vy += this.gravity;
+                    this.alpha -= this.decay;
+                    return this.alpha > 0;
+                }
+                draw() {
+                    ctx.save();
+                    ctx.globalAlpha = this.alpha;
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, 2.2, 0, Math.PI * 2);
+                    ctx.fillStyle = this.color;
+                    // Glowing particle effect
+                    ctx.shadowBlur = 8;
+                    ctx.shadowColor = this.color;
+                    ctx.fill();
+                    ctx.restore();
+                }
+            }
+
+            function animate() {
+                // Clear the canvas with a slight transparency to create beautiful trails
+                ctx.fillStyle = 'rgba(26, 6, 12, 0.18)'; 
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                
+                // Update & draw rockets
+                for (let i = rockets.length - 1; i >= 0; i--) {
+                    if (!rockets[i].update()) {
+                        rockets.splice(i, 1);
+                    } else {
+                        rockets[i].draw();
+                    }
+                }
+
+                // Update & draw particles
+                for (let i = particles.length - 1; i >= 0; i--) {
+                    if (!particles[i].update()) {
+                        particles.splice(i, 1);
+                    } else {
+                        particles[i].draw();
+                    }
+                }
+
+                // Periodically spawn new rockets
+                if (Math.random() < 0.045 && rockets.length < 4) {
+                    rockets.push(new Rocket());
+                }
+
+                requestAnimationFrame(animate);
+            }
+
+            // Fire off initial rockets
+            for(let i = 0; i < 3; i++) {
+                setTimeout(() => {
+                    rockets.push(new Rocket());
+                }, i * 650);
+            }
+            
+            animate();
+        }
+    </script>
+</body>
+</html>
